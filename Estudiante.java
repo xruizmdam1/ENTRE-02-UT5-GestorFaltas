@@ -1,6 +1,7 @@
 /**
  * Un objeto de esta clase guarda la información de un estudiante
  *
+ * @author - Xabier Ruiz Melero
  */
 public class Estudiante {
     private final static String SEPARADOR = ",";
@@ -17,10 +18,13 @@ public class Estudiante {
      *  
      */
     public Estudiante(String lineaDatos) {
-         
-
+        String[] strings;
+        strings = lineaDatos.split(SEPARADOR);
+        nombre = strings[0];
+        apellidos = strings[1];
+        faltasNoJustificadas = Integer.parseInt(strings[2]);
+        faltasJustificadas = Integer.parseInt(strings[3]);
     }
-
 
     /**
      * accesor para el nombre completo
@@ -93,13 +97,12 @@ public class Estudiante {
      * (ver enunciado)
      */
     public String toString() {
-        
+
         return null;
 
     }
 
-
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         Estudiante e1 = new Estudiante("  ander ibai  ,  Ruiz Sena , 12, 23");
         System.out.println(e1);
         System.out.println();
@@ -113,7 +116,6 @@ public class Estudiante {
         Estudiante e4 = new Estudiante("julen, Duque Puyal, 5, 55");
         System.out.println(e4);
         System.out.println();
-        
 
         System.out.println("---------------------------------");
         e1.justificar(3);

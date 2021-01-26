@@ -1,5 +1,6 @@
 /**
  * Punto de entrada a la aplicación
+ * @author - Xabier Ruiz Melero
  */
 public class TestGestorFaltas {
     /**
@@ -8,7 +9,13 @@ public class TestGestorFaltas {
      * (ver enunciado)
      */
     public static void main(String[] args) {
-        
+        if (args.length == 0) {
+            System.out.println("¡Error en la sintaxis! (java TestGestorFaltas 'nº estudiantes')");
+        }
+        else {
+            GestorFaltas GF = new GestorFaltas(Integer.parseInt(args[0]));
+            GF.leerDeFichero();
+            GF.ordenar();
+        }
     }
-
 }

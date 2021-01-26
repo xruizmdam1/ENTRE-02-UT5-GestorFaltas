@@ -8,12 +8,14 @@ import java.util.Scanner;
  * emitir listados con las faltas de los estudiantes, justificar faltas, 
  * anular matrícula dependiendo del nº de faltas, .....
  *
+ * @author - Xabier Ruiz Melero
  */
 public class GestorFaltas {
-     
-
+    private Estudiante[] estudiantes;
+    private int total;
     public GestorFaltas(int n) {
-         
+        estudiantes = new Estudiante[n];
+        total = 0;
     }
 
     /**
@@ -21,7 +23,7 @@ public class GestorFaltas {
      * false en otro caso
      */
     public boolean cursoCompleto() {
-        return false;
+        return total == estudiantes.length - 1;
     }
 
     /**
@@ -37,10 +39,14 @@ public class GestorFaltas {
      *    
      */
     public void addEstudiante(Estudiante nuevo) {
-        
-
+        if (!cursoCompleto()) {
+            estudiantes[total] = nuevo;
+            total++;
+        }
+        else {
+            System.out.println("El curso está completo");
+        }
     }
-
 
     /**
      * buscar un estudiante por sus apellidos
@@ -51,8 +57,12 @@ public class GestorFaltas {
      *  
      */
     public int buscarEstudiante(String apellidos) {
-         
-        return 0;
+        for (int i = 0; i < total; i++) {
+            if (estudiantes[i].getApellidos().equalsIgnoreCase(apellidos)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -61,9 +71,11 @@ public class GestorFaltas {
      *  
      */
     public String toString() {
-        
-        return null;
-
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < total; i++) {
+            sb.append(estudiantes[i].toString()).append("\t");
+        }
+        return sb.toString();
     }
 
     /**
@@ -75,7 +87,6 @@ public class GestorFaltas {
      *  justificar también)
      */
     public void justificarFaltas(String apellidos, int faltas) {
-         
 
     }
 
@@ -85,8 +96,19 @@ public class GestorFaltas {
      * Método de selección directa
      */
     public void ordenar() {
-        
-
+        for (int i = 0; i < total - 1; i++) {
+            int posmin = i;
+            for (int j = i + 1; j < total; j++) {
+                if(estudiantes[j].getFaltasNoJustificadas() == estudiantes[posmin].getFaltasNoJustificadas()){
+                    if (estudiantes[j].getFaltasJustificadas() > estudiantes[posmin].getFaltasJustificadas()){
+                        posmin = j;
+                    }
+                }
+            }
+            Estudiante aux = estudiantes[posmin];
+            estudiantes[posmin] = estudiantes[i];
+            estudiantes[i] = aux;
+        }
     }
 
     /**
@@ -94,7 +116,6 @@ public class GestorFaltas {
      * aquellos estudiantes con 30 o más faltas injustificadas
      */
     public void anularMatricula() {
-         
 
     }
 
